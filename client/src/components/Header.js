@@ -14,6 +14,9 @@ class Header extends Component {
         <li key="payment">
           <Payment />
         </li>,
+        <NavButton key="credits" to="/surveys">
+          Credits: {auth.credits}
+        </NavButton>,
         <NavButton key="logout" to="/api/logout">
           Logout
         </NavButton>
