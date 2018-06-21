@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+//import { Link } from "react-router-dom";
 
 const NavButton = props => {
   return (
-    <Link className="btn btn-primary" to={props.to}>
-      {props.children}
-    </Link>
+    <li>
+      <a href={props.to}>{props.children}</a>
+    </li>
   );
 };
 

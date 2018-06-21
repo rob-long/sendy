@@ -1,32 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { authenticate } from "../actions";
+import React from "react";
 
-class Landing extends Component {
-  componentWillMount() {
-    this.props.authenticate();
-  }
+const Landing = () => {
+  return (
+    <div style={{ textAlign: "center" }}>
+      <h1>Sendy!</h1>
+      <p>Easily send questionnaires to your clients!</p>
+    </div>
+  );
+};
 
-  render() {
-    const auth = this.props.auth;
-    const googleId = auth.data ? auth.data.googleId : "none";
-    return (
-      <div className="App">
-        {googleId}
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <a href="/auth/google">Sign in with google</a>
-      </div>
-    );
-  }
-}
-
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-export default connect(
-  mapStateToProps,
-  { authenticate }
-)(Landing);
+export default Landing;
