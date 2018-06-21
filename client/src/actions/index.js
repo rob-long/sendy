@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const ACTIONS = {
-  AUTHENICATE: "AUTHENICATE"
+  AUTHENTICATE: "AUTHENTICATE"
 };
 
 // without redux thunk we would need redux-promise to unpack the promise
@@ -9,7 +9,7 @@ export function authenticateOld() {
   const url = `/api/current_user`;
   const request = axios.get(url);
   return {
-    type: ACTIONS.AUTHENICATE,
+    type: ACTIONS.AUTHENTICATE,
     payload: request
   };
 }
@@ -21,7 +21,7 @@ export const authenticateOld2 = () => {
   return function(dispatch) {
     axios
       .get("api/current_user")
-      .then(res => dispatch({ type: ACTIONS.AUTHENICATE, payload: res }));
+      .then(res => dispatch({ type: ACTIONS.AUTHENTICATE, payload: res }));
   };
 };
 
@@ -29,11 +29,12 @@ export const authenticateOld2 = () => {
 // set payload to just the data property of response
 export const authenticate = () => async dispatch => {
   const res = await axios.get("api/current_user");
-  dispatch({ type: ACTIONS.AUTHENICATE, payload: res.data });
+  dispatch({ type: ACTIONS.AUTHENTICATE, payload: res.data });
 };
 
 export const handleToken = token => async dispatch => {
-  console.log("handleToken action creator");
-  const res = await axios.post("/api/stripe", token);
+  console.log("handleToken action creator", token.id);
+  const res = await axios.post("/api/stripe", { token });
+  console.log(res);
   dispatch({ type: ACTIONS.AUTHENTICATE, payload: res.data });
 };

@@ -25,5 +25,4 @@ module.exports = app => {
     // res.send(req.session);
     res.send(req.user);
   });
-  ("/api/current_user");
 };
