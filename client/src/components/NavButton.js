@@ -4,7 +4,9 @@ import React from "react";
 const NavButton = props => {
   return (
     <li>
-      <a href={props.to}>{props.children}</a>
+      <a className="btn" href={props.to}>
+        {props.children}
+      </a>
     </li>
   );
 };

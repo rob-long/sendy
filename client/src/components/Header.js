@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import NavButton from "./NavButton";
+import Payment from "./Payment";
 import { Link } from "react-router-dom";
 
 class Header extends Component {
@@ -9,7 +10,14 @@ class Header extends Component {
     if (auth === null) {
       return;
     } else if (auth) {
-      return <NavButton to="/api/logout">Logout</NavButton>;
+      return [
+        <li key="payment">
+          <Payment />
+        </li>,
+        <NavButton key="logout" to="/api/logout">
+          Logout
+        </NavButton>
+      ];
     }
     return <NavButton to="/auth/google">Sign in with Google</NavButton>;
   }
