@@ -34,10 +34,11 @@ if (process.env.NODE_ENV === "production") {
   // heroku specific
   // express  will serve production assets
   // like main js or main.css
-  app.use(express.static("/client/build"));
+  const path = require("path");
+  app.use(express.static(express.static(path.join(__dirname, "client/build"))));
 
   // just serve index.html as a last resort
-  const path = require("path");
+
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
