@@ -30,10 +30,6 @@ app.use(passport.session());
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
 
-app.get("/", (req, res) => {
-  res.send({ hi: "there" });
-});
-
 if (process.env.NODE_ENV === "production") {
   // heroku specific
   // express  will serve production assets
