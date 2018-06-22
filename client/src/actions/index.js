@@ -29,7 +29,6 @@ export const authenticateOld2 = () => {
 // set payload to just the data property of response
 export const authenticate = () => async dispatch => {
   const res = await axios.get("api/current_user");
-  console.log("getting current user!", res);
   dispatch({ type: ACTIONS.AUTHENTICATE, payload: res.data });
 };
 

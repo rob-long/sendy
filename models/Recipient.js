@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const recipientSchema = new Schema({
   email: { type: String, trim: true },
-  responded: { boolean: boolean, default: true }
+  responded: { type: Boolean, default: true }
 });
 
 mongoose.model("recipients", recipientSchema);
