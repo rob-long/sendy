@@ -25,10 +25,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// more direct way of require authRoutes
+// direct way of attaching routes to express
 // authRoutes returns a function which we invoke immediately with our express app
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
+require("./routes/surveyRoutes.js")(app);
 
 if (process.env.NODE_ENV === "production") {
   // heroku specific
