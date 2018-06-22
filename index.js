@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === "production") {
   // express  will serve production assets
   // like main js or main.css
   const path = require("path");
-  app.use(express.static(express.static(path.join(__dirname, "client/build"))));
+  app.use(express.static(path.join(__dirname, "client/build")));
 
   // just serve index.html as a last resort
 
