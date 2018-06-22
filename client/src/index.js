@@ -8,7 +8,7 @@ import ReduxPromise from "redux-promise";
 import App from "./components/App";
 import "./index.css";
 import rootReducer from "./reducers";
-import registerServiceWorker from "./registerServiceWorker";
+//import registerServiceWorker from "./registerServiceWorker";
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise, thunk)(
   createStore
@@ -21,4 +21,4 @@ ReactDOM.render(
   document.querySelector("#root")
 );
 
-registerServiceWorker();
+//registerServiceWorker();
