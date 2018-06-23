@@ -1,7 +1,7 @@
 import { ACTIONS } from "../actions";
 
 export default function(state = null, action) {
-  console.log("reducing", action);
+  //console.log("reducing", action);
   switch (action.type) {
     case ACTIONS.AUTHENTICATE:
       // return false if not logged inspect
