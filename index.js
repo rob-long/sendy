@@ -30,6 +30,7 @@ app.use(passport.session());
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
 require("./routes/surveyRoutes.js")(app);
+require("./routes/testRoutes.js")(app);
 
 if (process.env.NODE_ENV === "production") {
   // heroku specific
