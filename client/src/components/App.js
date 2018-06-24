@@ -6,7 +6,6 @@ import Header from "./Header";
 import Landing from "./Landing";
 import Dashboard from "./Dashboard";
 import SurveyNew from "./surveys/SurveyNew";
-import SurveyForm from "./surveys/SurveyForm";
 import SurveyFormReview from "./surveys/SurveyFormReview";
 
 class App extends Component {

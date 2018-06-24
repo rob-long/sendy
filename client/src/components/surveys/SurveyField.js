@@ -4,13 +4,7 @@ import React from "react";
 const SurveyField = ({ input, label, type, meta: { error, touched } }) => {
   return (
     <div className="input-field">
-      <input
-        {...input}
-        type={type}
-        id={input.name}
-        type="text"
-        className="validate"
-      />
+      <input {...input} type={type} id={input.name} className="validate" />
       <label htmlFor={input.name}>{label}</label>
       <span className="helper-text" data-error="wrong" data-success="right">
         {touched && error}
