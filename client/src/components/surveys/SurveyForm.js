@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+// redux-form automatically maps our form values to the redux store
 import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { reviewSurvey } from "../../actions";
 import SurveyField from "./SurveyField";
+import validateEmails from "../../utils/validateEmails";
+import formFields from "./fields";
 
 class SurveyForm extends Component {
   renderField({ label, type, name }) {
@@ -19,29 +20,18 @@ class SurveyForm extends Component {
   }
 
   onSubmit(values) {
-    // history is added to our props by React-Router
-    // we manipulate history in the callback to the addPost dispatch to redirect back to index page after new post added
-    console.log(values);
-    this.props.reviewSurvey(values);
-    this.props.history.push("/surveys/review");
-    //this.props.addPost(values, () => this.props.history.push("/"));
+    this.props.onSurveySubmit();
     return null;
   }
 
   // handleSubmit comes for free from redux-form!
   // https://redux-form.com/6.0.0-alpha.4/docs/api/props.md/
   render() {
-    const inputs = [
-      { label: "Survey Title", type: "text", name: "title" },
-      { label: "Subject Line", type: "text", name: "subject" },
-      { label: "Email Body", type: "text", name: "body" },
-      { label: "Recipient List", type: "text", name: "emails" }
-    ];
-    const fields = inputs.map(input => this.renderField(input));
+    const inputs = formFields.map(input => this.renderField(input));
 
     return (
       <form onSubmit={this.props.handleSubmit(this.onSubmit.bind(this))}>
-        {fields}
+        {inputs}
         <button type="submit" className="btn right">
           Submit
           <i className="material-icons right">done</i>
@@ -56,12 +46,17 @@ class SurveyForm extends Component {
 
 function validate(values) {
   const errors = {};
-  if (!values.title) {
-    errors.title = "Enter a title!";
+  formFields.forEach(({ name, label }) => {
+    if (!values[name]) {
+      errors[name] = `Enter a ${label}`;
+    }
+  });
+
+  const badEmails = validateEmails(values["recipients"]);
+  if (badEmails.length > 0) {
+    errors["emails"] = `The following emails are not valid: ${badEmails}`;
   }
-  if (!values.subject) {
-    errors.content = "Enter a subject!";
-  }
+
   // if errors is empty, the form is fine to submit
   return errors;
 }
@@ -69,10 +64,6 @@ function validate(values) {
 // validate function runs everytime we submit the form
 export default reduxForm({
   validate,
-  form: "surveyForm" // a unique identifier for this form
-})(
-  connect(
-    null,
-    { reviewSurvey }
-  )(SurveyForm)
-);
+  form: "surveyForm", // a unique identifier for this form,
+  destroyOnUnmount: false
+})(SurveyForm);

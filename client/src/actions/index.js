@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const ACTIONS = {
-  AUTHENTICATE: "AUTHENTICATE",
-  NEW_SURVEY: "NEW_SURVEY"
+  AUTHENTICATE: "AUTHENTICATE"
 };
 
 // without redux thunk we would need redux-promise to unpack the promise
@@ -15,7 +14,7 @@ export function authenticateOld() {
   };
 }
 
-// with redux-thunk we can unpack the promise ourselves by waiting for axios get to be done before dispatching
+// with redux-thunk we can unpack the promise ourselves by waiting for axios.get to be done before dispatching
 // utilize redux thunk by returning an action instead of an action creator as above
 // redux-thunk will automatically pass in the "hidden" dispatch for us to use
 export const authenticateOld2 = () => {
@@ -40,9 +39,8 @@ export const handleToken = token => async dispatch => {
   dispatch({ type: ACTIONS.AUTHENTICATE, payload: res.data });
 };
 
-export const reviewSurvey = values => {
-  return {
-    type: ACTIONS.NEW_SURVEY,
-    payload: values
-  };
+export const submitSurvey = (values, history) => async dispatch => {
+  const res = await axios.post("/api/surveys", values);
+  history.push("/surveys");
+  dispatch({ type: ACTIONS.AUTHENTICATE, payload: res.data });
 };
