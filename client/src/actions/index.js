@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const ACTIONS = {
-  AUTHENTICATE: "AUTHENTICATE"
+  AUTHENTICATE: "AUTHENTICATE",
+  NEW_SURVEY: "NEW_SURVEY"
 };
 
 // without redux thunk we would need redux-promise to unpack the promise
@@ -20,7 +21,7 @@ export function authenticateOld() {
 export const authenticateOld2 = () => {
   return function(dispatch) {
     axios
-      .get("api/current_user")
+      .get("/api/current_user")
       .then(res => dispatch({ type: ACTIONS.AUTHENTICATE, payload: res }));
   };
 };
@@ -28,14 +29,20 @@ export const authenticateOld2 = () => {
 // refactor using async await
 // set payload to just the data property of response
 export const authenticate = () => async dispatch => {
-  const res = await axios.get("api/current_user");
+  const res = await axios.get("/api/current_user");
   dispatch({ type: ACTIONS.AUTHENTICATE, payload: res.data });
 };
 
 // example of another action creator that
 // goes to the same reducer because it dispatches the same type
 export const handleToken = token => async dispatch => {
-  console.log("posting to /api/stripe");
   const res = await axios.post("/api/stripe", { token });
   dispatch({ type: ACTIONS.AUTHENTICATE, payload: res.data });
+};
+
+export const reviewSurvey = values => {
+  return {
+    type: ACTIONS.NEW_SURVEY,
+    payload: values
+  };
 };
