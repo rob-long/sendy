@@ -54,7 +54,7 @@ function validate(values) {
 
   const badEmails = validateEmails(values["recipients"]);
   if (badEmails.length > 0) {
-    errors["emails"] = `The following emails are not valid: ${badEmails}`;
+    errors["recipients"] = `The following emails are not valid: ${badEmails}`;
   }
 
   // if errors is empty, the form is fine to submit

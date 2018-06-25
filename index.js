@@ -10,8 +10,6 @@ require("./services/passport");
 // const authRoutes = require('./routes/authRoutes');
 
 mongoose.connect(keys.mongoURI);
-console.log(keys.mongoURI);
-
 const app = express();
 
 // middlewares that operate on requests before being passed to express
@@ -48,3 +46,9 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
+
+process.on("SIGINT", function() {
+  console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
+  // some other closing procedures go here
+  process.exit(1);
+});

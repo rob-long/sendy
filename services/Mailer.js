@@ -4,13 +4,13 @@ const makeTemplate = require("./emailTemplate");
 
 class Mailer {
   // deconstruct object - can be any object with subject and recipient
-  constructor({ subject, recipients }, content) {
+  constructor(survey) {
     sgMail.setApiKey(keys.sendGridKey);
-    this.to = this.formatAddresses(recipients);
+    this.to = this.formatAddresses(survey.recipients);
     this.from = "no-reply@sendy.com";
-    this.subject = subject;
-    this.text = content;
-    this.html = makeTemplate(content);
+    this.subject = survey.subject;
+    this.text = survey.body;
+    this.html = makeTemplate(survey);
   }
 
   getAll() {

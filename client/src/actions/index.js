@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const ACTIONS = {
-  AUTHENTICATE: "AUTHENTICATE"
+  AUTHENTICATE: "AUTHENTICATE",
+  MY_SURVEYS: "MY_SURVEYS"
 };
 
 // without redux thunk we would need redux-promise to unpack the promise
@@ -43,4 +44,9 @@ export const submitSurvey = (values, history) => async dispatch => {
   const res = await axios.post("/api/surveys", values);
   history.push("/surveys");
   dispatch({ type: ACTIONS.AUTHENTICATE, payload: res.data });
+};
+
+export const fetchSurveys = user => async dispatch => {
+  const res = await axios.get("/api/surveys");
+  dispatch({ type: ACTIONS.MY_SURVEYS, payload: res.data });
 };
